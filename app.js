@@ -1,7 +1,39 @@
 const inquirer = require('inquirer');
+const fs = require('fs');
+const generatePage = require('./src/page-template.js');
 
-// const fs = require('fs');
-// const generatePage = require('./src/page-template.js');
+const mockData = {
+    name: 'anthony',
+    github: 'anthonypena97',
+    confirmAbout: true,
+    about: 'artist and web developer',
+    projects: [
+        {
+            name: 'porfolio-project',
+            description: 'portfolio-generator',
+            languages: ['Javascript', 'HTML', 'CSS', 'ES6', 'jQuery', 'Bootstrap', 'Node'],
+            link: 'https://github.com/anthonypena97/portfolio-generator',
+            feature: false,
+            confirmAddProject: true
+        },
+        {
+            name: 'trail-finders',
+            description: 'lifestyle-app',
+            languages: ['Javascript', 'HTML', 'CSS', 'ES6', 'jQuery', 'Bootstrap', 'Node'],
+            link: 'https://github.com/anthonypena97/01-project',
+            feature: true,
+            confirmAddProject: true
+        },
+        {
+            name: 'taskmaster-pro',
+            description: 'lifestyle-app',
+            languages: ['Javascript', 'HTML', 'CSS', 'ES6', 'jQuery', 'Bootstrap', 'Node'],
+            link: 'https://github.com/anthonypena97/taskmaster-pro',
+            feature: true,
+            confirmAddProject: false
+        }
+    ]
+}
 
 // const pageHTML = generatePage(name, github);
 
@@ -142,12 +174,16 @@ const promptProject = portfolioData => {
 };
 
 // promptUser()
-//     .then(answers => console.log(answers))
 //     .then(promptProject)
-//     .then(projectAnswers => console.log(projectAnswers));
+//     .then(portfolioData => {
+//         const pageHTML = generatePage(portfolioData);
 
-promptUser()
-    .then(promptProject)
-    .then(portfolioData => {
-        console.log(portfolioData);
-    });
+const pageHTML = generatePage(mockData);
+
+fs.writeFile('./index.html', pageHTML, err => {
+    if (err) throw new Error(err);
+
+    // console.log('Page created! Check out index.html in this directory to see it');
+    // });
+    // });
+});
